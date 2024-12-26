@@ -1,6 +1,6 @@
-from rest_framework import serializers
+from rest_framework import serializers # Importing the necessary module for creating serializers in Django REST framework.
 from page.models.page_models import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User  # Importing the User model from Django's built-in auth system.
 
 
 # Serializer for the Socials model
@@ -56,7 +56,11 @@ class LandingPageSerializer(serializers.ModelSerializer):
         fields = '__all__'  # Include all fields of the LandingPage model in the serialized data
 
 
+# Serializer class for the User model, used to convert User instances into JSON format and vice versa.
 class UserSerializer(serializers.ModelSerializer):
+    
+    # The 'Meta' class is used to configure the serializer's behavior.
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined']
+        model = User  # Specifying that this serializer is for the 'User' model.
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined']  # Defining the fields to include in the serialized output.
+        # The 'fields' list specifies which attributes of the User model should be included in the serialized representation.
