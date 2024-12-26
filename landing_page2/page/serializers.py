@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from page.models.page_models import *
+from django.contrib.auth.models import User
 
 
 # Serializer for the Socials model
@@ -53,3 +54,9 @@ class LandingPageSerializer(serializers.ModelSerializer):
     class Meta:
         model = LandingPage  # Specify the model to be serialized
         fields = '__all__'  # Include all fields of the LandingPage model in the serialized data
+
+
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined']
