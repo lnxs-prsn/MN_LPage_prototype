@@ -56,7 +56,7 @@ class LandingPageSerializer(serializers.ModelSerializer):
         fields = '__all__'  # Include all fields of the LandingPage model in the serialized data
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined']
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined']
