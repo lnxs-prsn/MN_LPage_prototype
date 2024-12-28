@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from page.views.api_views import *
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 # below the code 
 #  "Sets up the DefaultRouter for generating RESTful routes for various ViewSets."
@@ -29,4 +30,6 @@ app_name = 'api'
 #  Define the URL patterns for the API, utilizing the DefaultRouter for automatic route generation
 urlpatterns = [
     path('', include(router.urls)),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

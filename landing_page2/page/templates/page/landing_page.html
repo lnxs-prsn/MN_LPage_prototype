@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ landing_page.title }}</title>
+</head>
+<body>
+    <header>
+        <h1>{{ landing_page.title }}</h1>
+        <img src="{{ landing_page.hero_image.url }}" alt="Hero Image" />
+        <p>{{ landing_page.hero_text }}</p>
+    </header>
+    <section>
+        <h2>Featured Campaigns</h2>
+        <ul>
+            {% for campaign in landing_page.featured_campaigns.all %}
+                <li>{{ campaign.title }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>Testimonials</h2>
+        <ul>
+            {% for testimonial in landing_page.testimonials.all %}
+                <li>{{ testimonial.name }}: {{ testimonial.content }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section>
+        <h2>Contact Us</h2>
+        <form action="{{ landing_page.contact_form.url }}" method="POST">
+            <input type="text" name="name" placeholder="Your Name">
+            <input type="email" name="email" placeholder="Your Email">
+            <textarea name="message" placeholder="Your Message"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</body>
+</html>
