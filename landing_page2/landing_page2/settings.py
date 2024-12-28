@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     #api
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_spectacular',
+
     # 'corsheaders',
 ]
 
@@ -52,6 +54,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'My API',
+    'DESCRIPTION': 'API documentation for my SPA backend',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,  # Optional, you can disable serving the schema if not needed
+    # Optional settings for customizing the docs appearance and content
 }
 
 
@@ -144,6 +155,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

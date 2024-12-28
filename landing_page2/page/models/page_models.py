@@ -16,6 +16,7 @@ class Socials(models.Model):
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     category = models.CharField(max_length=350, null=True, blank=True)  # Optional category field for grouping
     status = models.BooleanField(default=True)
+    submission_url = models.URLField()
 
     def __str__(self):
         return f'{self.title} in the {self.platform_name}'  # Return a string representation for the object
@@ -77,6 +78,7 @@ class Campaigns(models.Model):
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     category = models.CharField(max_length=350, null=True, blank=True)  # Optional category field for grouping
     status = models.BooleanField(default=False)
+    submission_url = models.URLField()
 
     def __str__(self):
         return f'{self.title} campaign'  # Return a string representation for the object
@@ -110,6 +112,7 @@ class ContactForm(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the record was created
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     status = models.BooleanField(default=True)
+    submission_url = models.URLField()
 
     def __str__(self):
         return f'Contact submission by {self.name} on {self.created_at}'  # Return a string representation for the object
@@ -130,6 +133,7 @@ class Testimonials(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the record was created
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     status = models.BooleanField(default=False)
+    submission_url = models.URLField()
 
     def __str__(self):
         return self.name  # Return the name of the person giving the testimonial

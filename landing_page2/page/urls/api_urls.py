@@ -30,6 +30,8 @@ app_name = 'api'
 #  Define the URL patterns for the API, utilizing the DefaultRouter for automatic route generation
 urlpatterns = [
     path('', include(router.urls)),
+
+    # JWT Authentication Token endpoints
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
