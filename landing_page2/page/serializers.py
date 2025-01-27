@@ -1,6 +1,8 @@
 from rest_framework import serializers # Importing the necessary module for creating serializers in Django REST framework.
 from page.models.page_models import *
 from django.contrib.auth.models import User  # Importing the User model from Django's built-in auth system.
+from django.contrib.auth.hashers import make_password
+from rest_framework.validators import UniqueValidator
 
 
 # Serializer for the Socials model
@@ -56,11 +58,38 @@ class LandingPageSerializer(serializers.ModelSerializer):
         fields = '__all__'  # Include all fields of the LandingPage model in the serialized data
 
 
-# Serializer class for the User model, used to convert User instances into JSON format and vice versa.
-class UserSerializer(serializers.ModelSerializer):
-    
-    # The 'Meta' class is used to configure the serializer's behavior.
+
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+    username = serializers.CharField(
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+    password = serializers.CharField(write_only=True)
+
     class Meta:
-        model = User  # Specifying that this serializer is for the 'User' model.
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined']  # Defining the fields to include in the serialized output.
-        # The 'fields' list specifies which attributes of the User model should be included in the serialized representation.
+        model = User
+        fields = ['username', 'email', 'password', 'first_name', 'last_name']
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
+
+
+
+
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'name']
+
+    def get_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"

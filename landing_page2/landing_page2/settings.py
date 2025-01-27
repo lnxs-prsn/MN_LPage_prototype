@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,9 +47,14 @@ INSTALLED_APPS = [
     #api
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+
     'drf_spectacular',
 
     # 'corsheaders',
+
+    # extensions
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -65,6 +72,17 @@ SPECTACULAR_SETTINGS = {
     # Optional settings for customizing the docs appearance and content
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'TOKEN_TYPE_CLAIM': 'type',  # This specifies the claim type for the token
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_BLACKLIST': 'rest_framework_simplejwt.token_blacklist.models.BlacklistedToken',
+}
+
+
 
 # for the production
 # CORS_ALLOWED_ORIGINS = [
@@ -74,7 +92,7 @@ SPECTACULAR_SETTINGS = {
 
 # ONLY FOR THE DEVELOPMENT
 # CORS_ALLOW_ALL_ORIGINS = True
-
+# MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')   # this is way to add to middleware instead of copy/paste the 0 indicates to list position 
 
 
 MIDDLEWARE = [

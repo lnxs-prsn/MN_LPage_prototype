@@ -14,9 +14,10 @@ class Socials(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # Timestamp for when the record was last updated
     slug = models.SlugField(unique=True, db_index=True)  # Slug field for URL-friendly names (unique for each record)
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
+    metadata = models.JSONField()
     category = models.CharField(max_length=350, null=True, blank=True)  # Optional category field for grouping
     status = models.BooleanField(default=True)
-    submission_url = models.URLField()
+    submission_url = models.URLField(default=dict)
 
     def __str__(self):
         return f'{self.title} in the {self.platform_name}'  # Return a string representation for the object
@@ -52,6 +53,7 @@ class AboutUs(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # Timestamp for when the record was last updated
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     status = models.BooleanField(default=True)
+    metadata = models.JSONField(default=dict)
 
     def __str__(self):
         return 'About Page'  # Return a string representation for the object
@@ -79,6 +81,7 @@ class Campaigns(models.Model):
     category = models.CharField(max_length=350, null=True, blank=True)  # Optional category field for grouping
     status = models.BooleanField(default=False)
     submission_url = models.URLField()
+    metadata = models.JSONField(default=dict)
 
     def __str__(self):
         return f'{self.title} campaign'  # Return a string representation for the object
@@ -112,7 +115,8 @@ class ContactForm(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the record was created
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     status = models.BooleanField(default=True)
-    submission_url = models.URLField()
+    submission_url = models.URLField(null=True, blank=True)
+    metadata = models.JSONField(default=dict)
 
     def __str__(self):
         return f'Contact submission by {self.name} on {self.created_at}'  # Return a string representation for the object
@@ -134,6 +138,7 @@ class Testimonials(models.Model):
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     status = models.BooleanField(default=False)
     submission_url = models.URLField()
+    metadata = models.JSONField(default=dict)
 
     def __str__(self):
         return self.name  # Return the name of the person giving the testimonial
@@ -163,6 +168,7 @@ class LandingPage(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # Timestamp for when the record was last updated
     meta_description = models.CharField(max_length=300, null=True, blank=True)  # Meta description for SEO purposes
     status = models.BooleanField(default=True)
+    metadata = models.JSONField(default=dict)
 
     def __str__(self):
         return self.title  # Return the title of the landing page
